@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-const Title = menuClick => (
+const Title = ({ clickStartMenu }) => (
   <div
     style={{
        position: 'absolute',
@@ -18,9 +19,17 @@ const Title = menuClick => (
   >
     <h1>OTHELLO</h1>
     <br />
-    <RaisedButton label="始める" primary onClick={menuClick} />
+    <RaisedButton
+      label="始める"
+      primary
+      onClick={clickStartMenu}
+    />
 
   </div>
 );
+
+Title.propTypes = {
+  clickStartMenu: PropTypes.func.isRequired,
+};
 
 export default Title;

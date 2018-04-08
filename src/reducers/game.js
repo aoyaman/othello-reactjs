@@ -1,19 +1,19 @@
-const game = (state = [], action) => {
+const initialState = {
+  cells: [],
+};
+const game = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false,
-        },
-      ];
-    case 'TOGGLE_TODO':
-      return state.map(todo =>
-        ((todo.id === action.id)
-          ? { ...todo, completed: !todo.completed }
-          : todo));
+    case 'START_GAME': {
+      const newState = Object.assign({}, state, { cells: [] });
+      for (let i = 0; i < 8 * 8; i += 1) {
+        newState.cells.push({
+          stone: null,
+          key: `cells${i}`,
+        });
+      }
+      return newState;
+    }
+
     default:
       return state;
   }

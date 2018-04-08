@@ -1,10 +1,22 @@
 import React from 'react';
-import Title from './Title';
+import PropTypes from 'prop-types';
 
-const App = () => (
+import Title from '../containers/Title';
+import Game from '../containers/Game';
+
+const App = ({ window }) => (
   <div>
-    <Title />
+    {window === 'title' && (
+      <Title />
+    )}
+    {window === 'game' && (
+      <Game />
+    )}
   </div>
 );
+
+App.propTypes = {
+  window: PropTypes.string.isRequired,
+};
 
 export default App;
