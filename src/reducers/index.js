@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import todos from './todos'
-import visibilityFilter from './visibilityFilter'
- 
+import { combineReducers } from 'redux';
+import game from './game';
+import visibilityFilter from './visibilityFilter';
+
 export default combineReducers({
-  todos,
-  visibilityFilter
-})
+  game,
+  visibilityFilter,
+});
