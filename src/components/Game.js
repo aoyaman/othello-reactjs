@@ -26,6 +26,20 @@ const style = {
   },
 };
 
+const drawStone = (index, stone) => (
+  <div style={{
+    color: (stone === null ? 'green' : stone),
+    width: 'calc(100% - 10px)',
+    height: 'calc(100% - 10px)',
+    borderRadius: '50%',
+    backgroundColor: (stone === null ? 'green' : stone),
+    margin: '5px',
+  }}
+  >
+    { index }
+  </div>
+);
+
 const drawCell = (index, data, windowWidth) => (
   <td>
     <div
@@ -36,10 +50,10 @@ const drawCell = (index, data, windowWidth) => (
         width: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
         height: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
         border: '1px solid black',
-        fontSize: '32px',
+        cursor: (data.stone === null ? 'pointer' : 'auto'),
       }}
     >
-      { index }
+      { drawStone(index, data.stone) }
     </div>
   </td>
 );
