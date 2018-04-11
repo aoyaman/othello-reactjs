@@ -2,30 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /* global window */
 
-const style = {
-  board: {
-    backgroundColor: 'green',
-    position: 'absolute',
-    width: '400px',
-    height: '400px',
-    maxWidth: '100%',
-    paddingTop: '50%',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    margin: 'auto',
-    textAlign: 'center',
-    letterSpacing: '-.40em', /* 文字間を詰めて隙間を削除する */
-  },
-  cell: {
-    width: '12.5%',
-    height: '0',
-    paddingTop: '12.5%',
-    border: '1px solid black',
-  },
-};
-
 const drawStone = (index, stone) => (
   <div style={{
     color: (stone === null ? 'green' : stone),
@@ -40,23 +16,31 @@ const drawStone = (index, stone) => (
   </div>
 );
 
-const drawCell = (index, data, windowWidth) => (
-  <td>
-    <div
-      key={data.key}
-      style={{
-        display: 'table-cell',
-        verticalAlign: 'middle',
-        width: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
-        height: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
-        border: '1px solid black',
-        cursor: (data.stone === null ? 'pointer' : 'auto'),
-      }}
+const drawCell = (index, data, windowWidth, onClick) => {
+  // console.log('drawCell()', index, data);
+  return (
+    <td
+      key={`${data.key}${data.stone}`}
     >
-      { drawStone(index, data.stone) }
-    </div>
-  </td>
-);
+      <div
+        style={{
+          display: 'table-cell',
+          verticalAlign: 'middle',
+          width: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
+          height: (windowWidth < 400 ? windowWidth / 8 : 400 / 8) - 2,
+          border: '1px solid black',
+          cursor: (data.stone === null ? 'pointer' : 'auto'),
+        }}
+        onClick={() => { onClick(index); }}
+        onKeyPress={() => {}}
+        role="button"
+        tabIndex={index}
+      >
+        { drawStone(index, data.stone) }
+      </div>
+    </td>
+  );
+};
 
 const cellMap = [];
 for (let i = 0; i < 8; i += 1) {
@@ -67,7 +51,7 @@ for (let i = 0; i < 8; i += 1) {
   cellMap.push(row);
 }
 
-const Game = ({ game }) => (
+const Game = ({ game, onCellClick }) => (
   <div style={{
       backgroundColor: 'green',
       position: 'absolute',
@@ -83,7 +67,7 @@ const Game = ({ game }) => (
   >
     {cellMap.map(row => (
       <div>
-        {row.map(i => drawCell(i, game.cells[i], window.innerWidth))}
+        {row.map(i => drawCell(i, game.cells[i], window.innerWidth, onCellClick))}
       </div>
     ))}
 
@@ -93,6 +77,7 @@ const Game = ({ game }) => (
 
 Game.propTypes = {
   game: PropTypes.shape({}).isRequired,
+  onCellClick: PropTypes.func.isRequired,
 };
 
 export default Game;

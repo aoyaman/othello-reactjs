@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import { startGame } from '../actions';
 import Title from '../components/Title';
 

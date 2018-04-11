@@ -2,9 +2,9 @@ export const startGame = () => ({
   type: 'START_GAME',
 });
 
-export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter,
+export const clickCell = index => ({
+  type: 'CLICK_CELL',
+  index,
 });
 
 export const toggleTodo = id => ({
